@@ -2,6 +2,8 @@
 
 const User = use('App/Models/User')
 const crypto = require('crypto')
+const kue = use('Kue')
+const Job = use('App/Jobs/ForgotPasswordMail')
 
 class ForgotPasswordController {
   async store ({ request, response }) {
@@ -14,9 +16,9 @@ class ForgotPasswordController {
 
       await user.save()
 
-      return user
+      kue.dispatch(Job.key, { email, redirect_url, user }, { attempts: 3 })
     } catch (error) {
-      return response.status(401).send({
+      return response.status(error.status).send({
         error: {
           message:
             'Invalid email, please make sure you filled in with valid email'
