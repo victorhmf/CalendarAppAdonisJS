@@ -22,3 +22,8 @@ Route.post('/sessions', 'SessionController.store').validator('Session')
 Route.post('/forgotPassword', 'ForgotPasswordController.store').validator(
   'ForgotPassword/Store'
 )
+
+Route.resource('events', 'EventController')
+  .apiOnly()
+  .validator(new Map([[['events.store'], ['Event/Store']]]))
+  .middleware(['auth'])
