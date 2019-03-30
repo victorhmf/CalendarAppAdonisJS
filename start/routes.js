@@ -17,13 +17,19 @@
 const Route = use('Route')
 
 Route.post('/users', 'UserController.store').validator('User/Store')
-Route.put('/users/:id', 'UserController.update').validator('User/Update')
 Route.post('/sessions', 'SessionController.store').validator('Session')
 Route.post('/forgotPassword', 'ForgotPasswordController.store').validator(
   'ForgotPassword/Store'
 )
 
-Route.resource('events', 'EventController')
-  .apiOnly()
-  .validator(new Map([[['events.store'], ['Event/Store']]]))
-  .middleware(['auth'])
+Route.group(() => {
+  Route.resource('events', 'EventController')
+    .apiOnly()
+    .validator(
+      new Map([
+        [['events.store'], ['Event/Store']],
+        [['events.update'], ['Event/Update']]
+      ])
+    )
+  Route.put('/users/:id', 'UserController.update').validator('User/Update')
+}).middleware(['auth'])
