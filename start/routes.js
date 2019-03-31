@@ -21,6 +21,9 @@ Route.post('/sessions', 'SessionController.store').validator('Session')
 Route.post('/forgotPassword', 'ForgotPasswordController.store').validator(
   'ForgotPassword/Store'
 )
+Route.put('/forgotPassword', 'ForgotPasswordController.update').validator(
+  'ForgotPassword/Update'
+)
 
 Route.group(() => {
   Route.resource('events', 'EventController')
