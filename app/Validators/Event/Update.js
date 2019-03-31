@@ -4,14 +4,16 @@ const Antl = use('Antl')
 
 const { rule } = use('Validator')
 
-class Update {
+class Store {
   get validateAll () {
     return true
   }
 
   get rules () {
     return {
-      datetime: [rule('dateFormat', 'YYYY-MM-DD HH:mm')]
+      title: 'required',
+      location: 'required',
+      datetime: [rule('dateFormat', 'YYYY-MM-DD HH:mm'), rule('required')]
     }
   }
 
@@ -20,4 +22,4 @@ class Update {
   }
 }
 
-module.exports = Update
+module.exports = Store

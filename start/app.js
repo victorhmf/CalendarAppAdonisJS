@@ -71,6 +71,6 @@ const commands = []
 |
 */
 
-const jobs = ['App/Jobs/ForgotPasswordMail']
+const jobs = ['App/Jobs/ForgotPasswordMail', 'App/Jobs/ShareEvent']
 
 module.exports = { providers, aceProviders, aliases, commands, jobs }
